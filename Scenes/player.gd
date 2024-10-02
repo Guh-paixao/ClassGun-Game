@@ -2,8 +2,6 @@ extends CharacterBody2D
 
 @export_category("Variables")
 @export var move_speed: float = 84.0
-@export var friction: float = 0.4
-@export var acceleration: float = 0.4
 
 @onready var anim = $AnimatedSprite2D
 
@@ -14,20 +12,17 @@ func _physics_process(_delta: float) -> void:
 	move_and_slide()
 
 func move() -> void:
-	var _direction: Vector2 = Vector2(
+	var direction: Vector2 = Vector2(
 		Input.get_axis("move_left", "move_right"),
 		Input.get_axis("move_up", "move_down")
 	)
 	
-	if _direction != Vector2.ZERO:
-		last_direction = _direction
-		velocity.x = lerp(velocity.x, _direction.normalized().x * move_speed, acceleration)
-		velocity.y = lerp(velocity.y, _direction.normalized().y * move_speed, acceleration)
-		set_animation(_direction)
+	if direction != Vector2.ZERO:
+		last_direction = direction
+		velocity = direction.normalized() * move_speed
+		set_animation(direction)
 	else:
-		velocity.x = lerp(velocity.x, 0.0, friction)
-		velocity.y = lerp(velocity.y, 0.0, friction)
-		
+		velocity = Vector2.ZERO
 		if velocity.length() < 0.1:
 			set_idle_animation()
 		else:

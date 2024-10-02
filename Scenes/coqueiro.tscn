@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://ouyapiy3o2xu"]
+
+[ext_resource type="Texture2D" uid="uid://hla0nytbencm" path="res://Sprites/Interiors_free/16x16/coqueiro.png" id="1_7ebub"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hmfwj"]
+size = Vector2(12, 10)
+
+[node name="coqueiro" type="StaticBody2D"]
+
+[node name="Sprite" type="Sprite2D" parent="."]
+position = Vector2(0, -14)
+texture = ExtResource("1_7ebub")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -4)
+shape = SubResource("RectangleShape2D_hmfwj")

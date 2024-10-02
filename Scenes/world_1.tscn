@@ -1,0 +1,37 @@
+[gd_scene load_steps=4 format=3 uid="uid://bdp5cn1uyadep"]
+
+[ext_resource type="PackedScene" uid="uid://cdlyaevvlehes" path="res://Scenes/player.tscn" id="1_3m7pt"]
+[ext_resource type="PackedScene" uid="uid://ouyapiy3o2xu" path="res://Scenes/coqueiro.tscn" id="2_3d50w"]
+[ext_resource type="PackedScene" uid="uid://7dtyu5l1ycgx" path="res://Scenes/orc.tscn" id="3_38hme"]
+
+[node name="World" type="Node2D"]
+y_sort_enabled = true
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = -100
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+offset_right = 324.0
+offset_bottom = 186.0
+color = Color(0.26889, 0.465902, 0.355537, 1)
+
+[node name="orc" parent="." instance=ExtResource("3_38hme")]
+position = Vector2(63, 40)
+
+[node name="orc2" parent="." instance=ExtResource("3_38hme")]
+position = Vector2(209, 26)
+
+[node name="orc3" parent="." instance=ExtResource("3_38hme")]
+position = Vector2(153, 133)
+
+[node name="Player" parent="." instance=ExtResource("1_3m7pt")]
+position = Vector2(139, 82)
+
+[node name="coqueiro" parent="." instance=ExtResource("2_3d50w")]
+position = Vector2(60, 118)
+
+[node name="coqueiro2" parent="." instance=ExtResource("2_3d50w")]
+position = Vector2(259, 43)
+
+[node name="coqueiro3" parent="." instance=ExtResource("2_3d50w")]
+position = Vector2(226, 98)
