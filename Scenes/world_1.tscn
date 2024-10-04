@@ -1,11 +1,17 @@
 [gd_scene load_steps=4 format=3 uid="uid://bdp5cn1uyadep"]
 
 [ext_resource type="PackedScene" uid="uid://cdlyaevvlehes" path="res://Scenes/player.tscn" id="1_3m7pt"]
-[ext_resource type="PackedScene" uid="uid://ouyapiy3o2xu" path="res://Scenes/coqueiro.tscn" id="2_3d50w"]
-[ext_resource type="PackedScene" uid="uid://7dtyu5l1ycgx" path="res://Scenes/orc.tscn" id="3_38hme"]
+[ext_resource type="Script" path="res://Scenes/world_1.gd" id="1_25lyp"]
+
+[sub_resource type="Curve2D" id="Curve2D_sag6k"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -17, -21, 0, 0, 0, 0, 347, -22, 0, 0, 0, 0, 345, 201, 0, 0, 0, 0, -17, 200, 0, 0, 0, 0, -16, -20, 0, 0, 0, 0, -14, -19, 0, 0, 0, 0, -17, -21)
+}
+point_count = 7
 
 [node name="World" type="Node2D"]
 y_sort_enabled = true
+script = ExtResource("1_25lyp")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 layer = -100
@@ -15,23 +21,49 @@ offset_right = 324.0
 offset_bottom = 186.0
 color = Color(0.26889, 0.465902, 0.355537, 1)
 
-[node name="orc" parent="." instance=ExtResource("3_38hme")]
-position = Vector2(63, 40)
-
-[node name="orc2" parent="." instance=ExtResource("3_38hme")]
-position = Vector2(209, 26)
-
-[node name="orc3" parent="." instance=ExtResource("3_38hme")]
-position = Vector2(153, 133)
-
 [node name="Player" parent="." instance=ExtResource("1_3m7pt")]
 position = Vector2(139, 82)
 
-[node name="coqueiro" parent="." instance=ExtResource("2_3d50w")]
-position = Vector2(60, 118)
+[node name="Path2D" type="Path2D" parent="Player"]
+position = Vector2(-139, -82)
+curve = SubResource("Curve2D_sag6k")
 
-[node name="coqueiro2" parent="." instance=ExtResource("2_3d50w")]
-position = Vector2(259, 43)
+[node name="PathFollow2D" type="PathFollow2D" parent="Player/Path2D"]
+unique_name_in_owner = true
+position = Vector2(-17, -21)
+rotation = -0.00274725
 
-[node name="coqueiro3" parent="." instance=ExtResource("2_3d50w")]
-position = Vector2(226, 98)
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.3
+autostart = true
+
+[node name="GameOver" type="CanvasLayer" parent="."]
+unique_name_in_owner = true
+visible = false
+
+[node name="ColorRect" type="ColorRect" parent="GameOver"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.396078)
+
+[node name="Label" type="Label" parent="GameOver/ColorRect"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -33.5
+offset_top = -9.5
+offset_right = 33.5
+offset_bottom = 9.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 12
+text = "Fim de Jogo"
+
+[connection signal="health_depleted" from="Player" to="." method="_on_player_health_depleted"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

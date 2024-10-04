@@ -1,6 +1,8 @@
 extends CharacterBody2D
 
-var health = 3
+@export var health: int = 3
+@export var speed: float = 40.0
+
 
 @onready var player = get_node("/root/World/Player")
 @onready var anim = $AnimatedSprite2D
@@ -8,9 +10,9 @@ var health = 3
 func _ready() -> void:
 	play_walk()
 
-func _physics_process(delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	var direction = global_position.direction_to(player.global_position)
-	velocity = direction * 40.0
+	velocity = direction * speed
 	move_and_slide()
 
 func take_damage():

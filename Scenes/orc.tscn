@@ -141,7 +141,10 @@ radius = 9.0
 [node name="orc" type="CharacterBody2D"]
 collision_layer = 2
 collision_mask = 3
+platform_floor_layers = 4294901760
 script = ExtResource("1_7d4yy")
+health = 4
+speed = 30.0
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_fpnwd")
@@ -151,5 +154,3 @@ frame_progress = 0.767129
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(1, 0)
 shape = SubResource("CircleShape2D_hev8e")
-
-[connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]

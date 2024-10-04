@@ -1,4 +1,4 @@
-[gd_scene load_steps=55 format=3 uid="uid://cdlyaevvlehes"]
+[gd_scene load_steps=58 format=3 uid="uid://cdlyaevvlehes"]
 
 [ext_resource type="Script" path="res://Scenes/player.gd" id="1_kej62"]
 [ext_resource type="Texture2D" uid="uid://b308n0h0oqu1q" path="res://Sprites/Characters_free/Alex_idle_anim_16x16.png" id="1_to6aj"]
@@ -387,7 +387,26 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ap2q8"]
 size = Vector2(10.75, 5)
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_6xful"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pj01i"]
+bg_color = Color(0.176471, 0.133333, 0.14902, 0.403922)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+anti_aliasing = false
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xmbx6"]
+bg_color = Color(0, 0.913725, 0.498039, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+anti_aliasing = false
+
 [node name="Player" type="CharacterBody2D"]
+platform_floor_layers = 4294901760
 script = ExtResource("1_kej62")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
@@ -402,3 +421,24 @@ shape = SubResource("RectangleShape2D_ap2q8")
 position = Vector2(1, -9)
 
 [node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="HurtBox" type="Area2D" parent="."]
+unique_name_in_owner = true
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
+position = Vector2(0, -11)
+shape = SubResource("CircleShape2D_6xful")
+debug_color = Color(0.775111, 0.387403, 0.558906, 0.42)
+
+[node name="ProgressBar" type="ProgressBar" parent="."]
+unique_name_in_owner = true
+offset_left = -21.0
+offset_top = -33.0
+offset_right = 21.0
+offset_bottom = -28.0
+theme_override_styles/background = SubResource("StyleBoxFlat_pj01i")
+theme_override_styles/fill = SubResource("StyleBoxFlat_xmbx6")
+value = 100.0
+show_percentage = false

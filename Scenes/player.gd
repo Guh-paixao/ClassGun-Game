@@ -2,14 +2,24 @@ extends CharacterBody2D
 
 @export_category("Variables")
 @export var move_speed: float = 84.0
-
 @onready var anim = $AnimatedSprite2D
 
+signal health_depleted
+
+@export var health: float = 100.0 
 var last_direction: Vector2 = Vector2.ZERO
 
-func _physics_process(_delta: float) -> void:
+func _physics_process(delta: float) -> void:
 	move()
 	move_and_slide()
+	
+	const DAMAGE_RATE = 5.0
+	var overlapping_mobs = %HurtBox.get_overlapping_bodies()
+	if overlapping_mobs.size() > 0:
+		health -= DAMAGE_RATE * overlapping_mobs.size() * delta
+		%ProgressBar.value = health
+		if health <= 0.0:
+			health_depleted.emit()
 
 func move() -> void:
 	var direction: Vector2 = Vector2(
